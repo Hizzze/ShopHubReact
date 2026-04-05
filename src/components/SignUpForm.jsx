@@ -1,32 +1,32 @@
-import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 function SignUpForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    alert('submited with email ' + email + 'and password: ' + password);
-
-    setEmail('');
-    setPassword('');
+  function onSubmit(data) {
+    // alert(`submited email: ${data.email} and password ${data.password}`);
   }
 
   return (
     <div style={{ maxWidth: 400, margin: '2rem auto' }}>
       <h1>Sign Up</h1>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div style={{ marginBottom: '1rem' }}>
           <label>
             Email
             <input
               type="email"
               placeholder="you@gmail.com"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
+              {...register('email', { required: 'Email is required' })}
             />
           </label>
+
+          {errors.email && <p style={{ color: 'crimson' }}>{errors.email.message}</p>}
         </div>
 
         <div style={{ marginBottom: '1rem' }}>
@@ -35,10 +35,20 @@ function SignUpForm() {
             <input
               type="password"
               placeholder="**********"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
+              {...register('password', {
+                required: 'Password is required',
+                minLength: {
+                  value: 4,
+                  message: 'Password must be at least 4 chars',
+                },
+                maxLength: {
+                  value: 12,
+                  message: 'Password must be at most 12 chars',
+                },
+              })}
             />
           </label>
+          {errors.password && <p style={{ color: 'crimson' }}>{errors.password.message}</p>}
         </div>
 
         <button type="submit">Create Account</button>
