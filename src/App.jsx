@@ -1,11 +1,20 @@
+import { useState, useEffect } from 'react';
 import './App.css';
-import SignUpForm from './components/SignUpForm';
-function App() {
+import { Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Auth from './pages/Auth';
+import Checkout from './pages/Checkout';
+import { Navbar } from './components/Navbar';
+
+export default function App() {
   return (
-    <div>
-      <SignUpForm />
+    <div className="app">
+      <Navbar />
+      <Routes>
+        <Route path={'/'} element={<Home />} />
+        <Route path={'/auth'} element={<Auth />} />
+        <Route path={'/checkout'} element={<Checkout />} />
+      </Routes>
     </div>
   );
 }
-
-export default App;
