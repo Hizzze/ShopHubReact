@@ -3,7 +3,7 @@ import { getProducts } from '../data/products';
 
 export default function ProductCard({ product }) {
   return (
-    <div className="product-card" key={product.id}>
+    <div className="product-card">
       <div className="product-card-content" style={{ cursor: 'pointer' }}>
         <img src={product.image} alt={product.name} />
         <h3 className="product-card-name">{product.name}</h3>
