@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { getProducts } from '../data/products';
 import { useCart } from '../context/CartContext';
 
 export default function ProductCard({ product }) {
